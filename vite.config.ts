@@ -4,8 +4,6 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   base: './',
-  build: {
-    target: 'es2022',
-    sourcemap: true
-  }
+  server: { open: '/app.html' },
+  build: { target: 'es2022', sourcemap: true, rollupOptions: { input: 'app.html' } }
 });
