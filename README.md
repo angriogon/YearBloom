@@ -1,94 +1,57 @@
-# YearBloom PWA
+# YearBloom
 
-YearBloom is an independent, installable iPhone web app that recreates the **functionality pattern** of a one-year visual journal: daily mood, text memories, up to five photos, a 365-day growing garden, search/revisit, offline storage, free/full feature gating and optional cross-device sync.
+YearBloom es una web app instalable para iPhone (PWA) pensada como diario visual de un año completo. Está diseñada para uso personal, totalmente gratuita en esta versión, y ofrece una experiencia cuidada inspirada en el concepto de jardín diario sin reutilizar marca, código ni recursos gráficos de terceros.
 
-It deliberately **does not copy** third-party branding, source code, hand-drawn plant assets, screenshots or proprietary text. The plants are original procedural SVG illustrations generated from the date.
+## Qué incluye
 
-## What is included
+- Jardín anual de 365 días.
+- Planta original generada para cada fecha.
+- Registro diario del estado de ánimo.
+- Recuerdo en texto libre.
+- Hasta 5 fotos por día.
+- Búsqueda y filtros en recuerdos.
+- Resumen visual del año.
+- Almacenamiento local sin cuenta.
+- Exportación e importación en JSON.
+- Funcionamiento offline una vez instalada/cargada.
+- Sincronización opcional con Supabase.
+- Preparada para GitHub Pages.
 
-- 365-day visual garden, with a deterministic original plant for each date.
-- Daily mood tracking in the free tier.
-- Full tier: text journal + up to 5 photos per day.
-- Camera/photo picker optimized for iPhone (`capture="environment"`).
-- Image compression before local storage.
-- Browse/search old memories.
-- Offline-first storage using IndexedDB.
-- Export/import JSON backup.
-- PWA manifest, offline service worker and Apple home-screen metadata.
-- Optional Supabase magic-link login and cross-device sync.
-- Demo paywall with monthly/annual/lifetime options and optional external checkout URLs.
-- Responsive mobile-first UI designed for standalone iOS use.
+## Modo de uso personal gratuito
 
-## Important iOS web limitation
+La app queda desbloqueada para uso personal. No hay muro de pago dentro de esta versión.
 
-A pure PWA cannot provide native **Home Screen / Lock Screen widgets** like a Swift iOS app can. It can be installed to the Home Screen and run standalone/offline, but native widgets require an iOS app/widget extension. If native widgets are mandatory, use this UI/data layer as the basis for a Capacitor/React Native or Swift version and add a WidgetKit extension.
-
-## Quick start
+## Desarrollo local
 
 ```bash
 npm install
-cp .env.example .env
 npm run dev
 ```
 
-Open the local URL in Safari/Chrome. The default app mode is `demo`, so Settings lets you switch between Free and Full.
+## Publicación en GitHub Pages
 
-## App modes
+El repositorio incluye workflow en `.github/workflows/deploy-pages.yml`.
 
-In `.env`:
+1. En GitHub entra en **Settings → Pages**.
+2. Selecciona **GitHub Actions** como fuente.
+3. El workflow compila `dist` y lo publica automáticamente.
 
-```bash
-VITE_APP_MODE=demo
-```
+Después, en iPhone:
 
-- `demo`: Free/Full can be switched locally for testing.
-- `free`: forces the free tier.
-- `personal`: unlocks all Full functionality. Recommended for a private personal deployment.
+1. Abre la URL publicada en Safari.
+2. Pulsa **Compartir**.
+3. Elige **Añadir a pantalla de inicio**.
+4. Abre YearBloom desde el icono como si fuera una app.
 
-## Optional cloud sync with Supabase
+## Sincronización opcional
 
-1. Create a free Supabase project.
-2. Open its SQL Editor and run `supabase/schema.sql`.
-3. Add the project URL and anon key to `.env`:
+Si quieres sincronizar varios dispositivos:
 
-```bash
-VITE_SUPABASE_URL=https://YOUR_PROJECT.supabase.co
-VITE_SUPABASE_ANON_KEY=YOUR_ANON_KEY
-```
+1. Crea un proyecto gratuito en Supabase.
+2. Ejecuta `supabase/schema.sql` en el SQL Editor.
+3. Añade `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY` a `.env`.
+4. Activa Email / Magic Link en Supabase Auth.
 
-4. In Supabase Authentication, enable Email / Magic Link and add your deployed GitHub Pages URL as an allowed redirect URL.
+## Nota legal
 
-The included prototype synchronizes compressed image data in the database JSON row for simplicity. For a larger production deployment, move photos to Supabase Storage and store only their URLs in the journal row.
-
-## Optional billing
-
-You can point the three paywall options to Stripe Payment Links:
-
-```bash
-VITE_MONTHLY_CHECKOUT_URL=https://buy.stripe.com/...
-VITE_ANNUAL_CHECKOUT_URL=https://buy.stripe.com/...
-VITE_LIFETIME_CHECKOUT_URL=https://buy.stripe.com/...
-```
-
-For a real commercial app, **do not unlock premium only in the browser**. Use Stripe webhooks + a server/Supabase Edge Function to update a user entitlement in the database, then read that entitlement after authentication. The local demo switch is intentionally only for testing/personal use.
-
-## Deploy to GitHub Pages
-
-Create a repository, push this folder, and enable **Settings → Pages → GitHub Actions**. The workflow in `.github/workflows/deploy-pages.yml` builds and publishes the app.
-
-After deployment on iPhone:
-
-1. Open the GitHub Pages URL in Safari.
-2. Tap **Share**.
-3. Tap **Add to Home Screen**.
-4. Launch YearBloom from the new icon.
-
-## Privacy notes
-
-- Without Supabase, journal data stays in the browser storage on the device.
-- Clearing Safari website data can delete local-only entries, so use Export regularly.
-- With Supabase enabled, row-level security in `schema.sql` restricts each signed-in user to their own journal rows.
-
-## Production hardening checklist
-
-Before publishing commercially, add: server-verified billing entitlements, Supabase Storage for photos, end-to-end encrypted backups if required, account deletion, privacy/terms pages, automated tests, error reporting consent, CSP/security headers and a native solution if true iOS widgets/biometric app locking are required.
+YearBloom es una implementación original e independiente. Reproduce una experiencia funcional similar a la de un diario visual anual, pero no copia ilustraciones, marca, capturas, textos ni otros recursos protegidos de terceros.
