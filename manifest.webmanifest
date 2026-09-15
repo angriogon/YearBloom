@@ -1,0 +1,16 @@
+{
+  "name": "YearBloom — Diario anual",
+  "short_name": "YearBloom",
+  "description": "Diario visual anual con estado de ánimo, recuerdos, fotos y jardín de 365 días.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5f1e8",
+  "theme_color": "#f5f1e8",
+  "orientation": "portrait-primary",
+  "icons": [
+    {"src":"./icons/icon-192.png","sizes":"192x192","type":"image/png"},
+    {"src":"./icons/icon-512.png","sizes":"512x512","type":"image/png"},
+    {"src":"./icons/apple-touch-icon.png","sizes":"180x180","type":"image/png"}
+  ]
+}
