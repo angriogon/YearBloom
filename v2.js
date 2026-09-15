@@ -81,7 +81,8 @@
 
   function enhanceGarden(root) {
     const garden = root.querySelector('.garden');
-    if (!garden) return;
+    if (!garden || garden.dataset.v2Enhanced) return;
+    garden.dataset.v2Enhanced = '1';
     const screen = garden.closest('.screen');
     screen.classList.add('v2-garden-screen');
     addTopActions(screen);
@@ -119,7 +120,8 @@
 
   function enhanceJournal(root) {
     const journal = root.querySelector('.journal');
-    if (!journal) return;
+    if (!journal || journal.dataset.v2Enhanced) return;
+    journal.dataset.v2Enhanced = '1';
     const screen = journal.closest('.screen');
     screen.classList.add('v2-today-screen');
     addTopActions(screen);
